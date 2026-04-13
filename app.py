@@ -4,16 +4,21 @@ import os
 import random
 from pathlib import Path
 
-# ── load chroma_db (download from HF if not present) ────────────────────
+# ── load chroma_db (download from HF if not present or invalid) ─────────
 CHROMA_PATH = Path("chroma_db")
-if not CHROMA_PATH.exists():
+_needs_download = not CHROMA_PATH.exists() or not (CHROMA_PATH / "chroma.sqlite3").exists()
+if _needs_download:
     with st.spinner("⏬ Downloading vector database from HuggingFace (first run only)..."):
         try:
+            import shutil
+            if CHROMA_PATH.exists():
+                shutil.rmtree(CHROMA_PATH)
             from huggingface_hub import snapshot_download
             snapshot_download(
                 repo_id="skar-23/gitlab-chatbot-db",
                 repo_type="dataset",
                 local_dir=str(CHROMA_PATH),
+                ignore_patterns=["*.gitattributes", "README.md"],
             )
         except Exception as e:
             st.error(f"❌ Failed to download vector database: {e}")
