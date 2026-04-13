@@ -3,7 +3,7 @@
 An AI-powered chatbot that helps employees and aspiring employees easily access information from GitLab's Handbook and Direction pages — built with **Hybrid RAG + HyDE retrieval**.
 
 ## 🌐 Live Demo
-🔗 [https://gl-assistant-bot.streamlit.app/](https://gl-assistant-bot.streamlit.app/)
+🔗 [https://app-handbook-chatbot.streamlit.app/](https://app-handbook-chatbot.streamlit.app/)
 
 ## 👤 Author
 **V Sai Kiran Reddy**  
