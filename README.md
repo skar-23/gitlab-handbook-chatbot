@@ -6,7 +6,7 @@ An AI-powered chatbot that helps employees and aspiring employees easily access 
 🔗 [https://gl-assistant-bot.streamlit.app/](https://gl-assistant-bot.streamlit.app/)
 
 ## 👤 Author
-**R Kiran Kumar**
+**V Sai Kiran Reddy**
 GitHub: [https://github.com/rathodkiran02](https://github.com/rathodkiran02)
 
 ---
