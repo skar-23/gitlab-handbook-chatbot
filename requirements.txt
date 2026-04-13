@@ -1,6 +1,7 @@
 streamlit
 google-genai
-chromadb==1.5.5
+chromadb==0.6.3
+protobuf==4.25.3
 numpy<2.0
 beautifulsoup4
 requests
@@ -9,3 +10,4 @@ tiktoken
 gitpython
 tqdm
 sentence-transformers
+huggingface_hub
