@@ -24,6 +24,9 @@ if _needs_download:
             st.error(f"❌ Failed to download vector database: {e}")
             st.stop()
 
+sys.path.insert(0, str(Path(__file__).parent / "src"))
+from rag_engine import ask
+
 # ── page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="GitLab Assistant",
