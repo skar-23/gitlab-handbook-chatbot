@@ -300,12 +300,11 @@ def ask(question: str, chat_history: list = []) -> dict:
 Answer the question directly and helpfully using the context provided.
 
 RULES:
-- Give direct, clean answers — no disclaimers like "the context says" or "based on provided context"
-- Never say "I cannot find this in the context" — if info is partial, give what you have naturally
-- Don't mention "Handbook" or "Direction pages" in every sentence — just answer naturally
+- Give direct, clean answers using the context below
 - Use bullet points and structure for complex answers
 - For follow-up questions, use the conversation history to maintain context
-- If truly no relevant info exists, say: "I don't have specific details on that — try checking handbook.gitlab.com directly"
+- If the context has partial info, use what's available and answer naturally
+- Only if there is truly zero relevant info in the context, say: "I don't have specific details on that — try checking handbook.gitlab.com directly"
 - Use markdown tables when comparing things
 - Never make up facts
 
