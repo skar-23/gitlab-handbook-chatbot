@@ -10,7 +10,7 @@ CHROMA_PATH = Path("chroma_db")
 if not CHROMA_PATH.exists():
     with st.spinner("🔄 Loading knowledge base... (first time only, ~2 mins)"):
         snapshot_download(
-            repo_id="rathod02/gitlab-chatbot-db",
+            repo_id="skar-23/gitlab-chatbot-db",
             repo_type="dataset",
             local_dir="chroma_db",
             token=os.getenv("HF_TOKEN")
