@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 data/handbook/
 .streamlit/secrets.toml
+chroma_db/

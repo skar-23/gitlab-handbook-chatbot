@@ -4,12 +4,20 @@ import os
 import random
 from pathlib import Path
 
-# ── load chroma_db locally ───────────────────────────────────────────────
-# Vector database is checked in with the repo
+# ── load chroma_db (download from HF if not present) ────────────────────
 CHROMA_PATH = Path("chroma_db")
 if not CHROMA_PATH.exists():
-    st.error("❌ Vector database (chroma_db/) is missing from the repository. Please ensure it's included in your GitHub repo.")
-    st.stop()
+    with st.spinner("⏬ Downloading vector database from HuggingFace (first run only)..."):
+        try:
+            from huggingface_hub import snapshot_download
+            snapshot_download(
+                repo_id="skar-23/gitlab-chatbot-db",
+                repo_type="dataset",
+                local_dir=str(CHROMA_PATH),
+            )
+        except Exception as e:
+            st.error(f"❌ Failed to download vector database: {e}")
+            st.stop()
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 from rag_engine import ask
