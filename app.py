@@ -24,16 +24,6 @@ if _needs_download:
             st.error(f"❌ Failed to download vector database: {e}")
             st.stop()
 
-sys.path.insert(0, str(Path(__file__).parent / "src"))
-from rag_engine import ask, handbook_collection, direction_collection
-
-# ── debug: show collection counts ───────────────────────────────────────
-_h = handbook_collection.count()
-_d = direction_collection.count()
-if _h == 0 and _d == 0:
-    st.error("❌ Vector database is empty. Please check the HuggingFace dataset.")
-    st.stop()
-
 # ── page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="GitLab Assistant",

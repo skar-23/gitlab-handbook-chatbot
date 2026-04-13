@@ -328,9 +328,12 @@ Answer:"""
         src = chunk["source"]
         if src not in seen_srcs:
             seen_srcs.add(src)
+            url = chunk["url"]
+            # derive readable title from URL path
+            title = url.rstrip("/").split("/")[-1].replace("-", " ").replace("_", " ").title() if url else src
             sources.append({
-                "source":     src,
-                "url":        chunk["url"],
+                "source":     title,
+                "url":        url,
                 "collection": chunk["collection"],
                 "score":      round(chunk["score"], 3)
             })
