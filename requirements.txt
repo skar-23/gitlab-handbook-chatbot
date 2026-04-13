@@ -1,6 +1,7 @@
 streamlit
 google-genai
 chromadb==1.5.5
+protobuf==3.20.3
 numpy<2.0
 beautifulsoup4
 requests
