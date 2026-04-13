@@ -6,32 +6,32 @@ An AI-powered chatbot that helps employees and aspiring employees easily access 
 🔗 [https://gl-assistant-bot.streamlit.app/](https://gl-assistant-bot.streamlit.app/)
 
 ## 👤 Author
-**V Sai Kiran Reddy**
-GitHub: [https://github.com/rathodkiran02](https://github.com/rathodkiran02)
+**V Sai Kiran Reddy**  
+GitHub: [https://github.com/skar-23/gitlab-handbook-chatbot](https://github.com/skar-23/gitlab-handbook-chatbot)
 
 ---
 
 ## 🧠 How It Works
 
-This chatbot utilizes an **Advanced Hybrid RAG** (Retrieval-Augmented Generation) pipeline to ensure high accuracy and context-aware responses:
+This chatbot uses an **Advanced Hybrid RAG** pipeline to improve accuracy and grounded responses:
 
-1.  **Query Expansion**: Automatically enriches the user's question with GitLab-specific terminology.
-2.  **HyDE (Hypothetical Document Embeddings)**: Gemini generates a "hypothetical" ideal answer to bridge the gap between user questions and technical documentation.
-3.  **Hybrid Search**: Combines semantic vector search (via ChromaDB) with keyword matching across **75,000+ chunks**.
-4.  **Dual Collection Retrieval**: Searches the Handbook and Direction pages separately to ensure strategic and operational data are both considered.
-5.  **Grounded Generation**: Gemini 2.0 Flash synthesizes the final answer, strictly using the retrieved context with source citations.
+1. **Query Expansion**: Enriches the user query with GitLab-specific terms.
+2. **HyDE**: Gemini generates a hypothetical ideal answer to improve retrieval quality.
+3. **Hybrid Search**: Combines semantic search (ChromaDB) + keyword matching.
+4. **Dual Retrieval**: Searches Handbook and Direction content separately.
+5. **Grounded Generation**: Gemini synthesizes an answer using only retrieved context and provides citations.
 
 ---
 
 ## ✨ Features
 
-- 💬 **Natural Conversation**: Supports multi-turn dialogue and remembers context.
-- 📚 **Massive Knowledge Base**: Indexed GitLab's entire public handbook and direction site.
-- 🔍 **Hybrid RAG & HyDE**: Advanced retrieval techniques to minimize hallucinations.
-- 📖 **Source Citations**: Every answer includes links/references to the original GitLab pages.
-- 🎨 **UI Customization**: Includes Light, Dark, and Blue themes via Streamlit.
-- 🛡️ **Smart Guardrails**: Gracefully handles off-topic queries and provides "GitLab Facts" during loading.
-- ⚡ **Model Fallback**: Automated switching between Gemini models to manage API quotas.
+- 💬 Natural conversation with multi-turn memory.
+- 📚 Large indexed knowledge base from GitLab public docs.
+- 🔍 Hybrid RAG + HyDE retrieval.
+- 📖 Source citations in final answers.
+- 🎨 Multiple UI themes in Streamlit.
+- 🛡️ Basic guardrails for off-topic handling.
+- ⚡ Model fallback strategy for quota handling.
 
 ---
 
@@ -39,11 +39,11 @@ This chatbot utilizes an **Advanced Hybrid RAG** (Retrieval-Augmented Generation
 
 | Component | Technology |
 |---|---|
-| **Frontend** | Streamlit |
-| **LLM** | Google Gemini 2.0 Flash |
-| **Embeddings** | `sentence-transformers` (all-MiniLM-L6-v2) |
-| **Vector Store** | ChromaDB |
-| **Data Ingestion** | Git (Handbook) & BeautifulSoup (Direction Scraping) |
+| Frontend | Streamlit |
+| LLM | Google Gemini 2.0 Flash |
+| Embeddings | `sentence-transformers` (`all-MiniLM-L6-v2`) |
+| Vector Store | ChromaDB |
+| Data Ingestion | Git (Handbook) + BeautifulSoup (Direction pages) |
 
 ---
 
@@ -51,58 +51,98 @@ This chatbot utilizes an **Advanced Hybrid RAG** (Retrieval-Augmented Generation
 
 ```text
 gitlab-handbook-chatbot/
-├── app.py                        # Main Streamlit UI
+├── app.py
 ├── src/
-│   ├── rag_engine.py             # RAG pipeline (HyDE + Hybrid search)
-│   ├── ingest_handbook.py        # Clone + smart chunk GitLab handbook
-│   ├── ingest_direction.py       # Scrape + chunk direction pages
-│   ├── build_vectorstore.py      # Build ChromaDB vector store
-│   ├── clear_db.py               # Database maintenance
-│   └── debug_search.py           # Retrieval quality testing
-├── data/                         # Local storage for cloned/scraped content
-├── chroma_db/                    # Persistent vector storage
-├── requirements.txt              # Dependencies
-└── .env                          # API keys
-🚀 Setup & Run Locally
+│   ├── rag_engine.py
+│   ├── ingest_handbook.py
+│   ├── ingest_direction.py
+│   ├── build_vectorstore.py
+│   ├── clear_db.py
+│   └── debug_search.py
+├── requirements.txt
+└── runtime.txt
+```
 
-Prerequisites
+---
 
-Python 3.10+
+## 🚀 Setup & Run Locally
 
-Gemini API key from AI Studio
+### Prerequisites
 
-1. Clone & Install
-Bash
-git clone [https://github.com/rathodkiran02/gitlab-handbook-chatbot](https://github.com/rathodkiran02/gitlab-handbook-chatbot)
+- Python 3.10+
+- Gemini API key (Google AI Studio)
+
+### 1) Clone and install
+
+```bash
+git clone https://github.com/skar-23/gitlab-handbook-chatbot.git
 cd gitlab-handbook-chatbot
 python -m venv venv
-source venv/bin/activate  # venv\Scripts\activate on Windows
-
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
+```
 
-2. Environment Setup
+### 2) Environment variables
 
-Create a .env file in the root directory:
+Create a `.env` file in the project root:
 
-Code snippet
-
+```env
 GEMINI_API_KEY=your_gemini_api_key_here
+HF_TOKEN=your_huggingface_token_if_needed
+```
 
-3. Build Data Pipeline
+### 3) Run the app
 
-Run the ingestion script (Note: First run takes ~20 mins due to the size of the GitLab Handbook).
-
-Bash
-python src/build_vectorstore.py
-
-4. Launch App
-
-Bash
+```bash
 streamlit run app.py
+```
 
-🎯 Example Questions
-"What are GitLab's core CREDIT values?"
+---
 
-"How does GitLab handle 'unlimited' PTO?"
+## ☁️ Deploy on Streamlit Community Cloud (separate deployment)
 
-"How do I prepare for a technical interview at GitLab?"
+1. Push your code to your GitHub repository (already done).
+2. Go to [https://share.streamlit.io](https://share.streamlit.io) and sign in with GitHub.
+3. Click **Create app** and select:
+   - Repository: `skar-23/gitlab-handbook-chatbot`
+   - Branch: `main`
+   - Main file path: `app.py`
+4. In app **Settings → Secrets**, add:
+
+```toml
+GEMINI_API_KEY = "your_gemini_api_key_here"
+HF_TOKEN = "your_huggingface_token_if_needed"
+```
+
+5. Deploy the app.
+
+Notes:
+- `requirements.txt` is already present, so Streamlit Cloud installs dependencies automatically.
+- First startup may take extra time while the vector DB is downloaded.
+
+---
+
+## 📝 Update README after deployment
+
+After Streamlit gives your new app URL, replace the Live Demo link in this README:
+
+```md
+## 🌐 Live Demo
+🔗 https://your-app-name.streamlit.app/
+```
+
+Then commit and push:
+
+```bash
+git add README.md
+git commit -m "docs: add Streamlit deployment instructions and live demo link"
+git push
+```
+
+---
+
+## 🎯 Example Questions
+
+- What are GitLab's core CREDIT values?
+- How does GitLab handle unlimited PTO?
+- How do I prepare for a technical interview at GitLab?
